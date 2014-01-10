@@ -3,17 +3,42 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 	public Vector3 inputDir = Vector3.zero;
+	public float triggers;
 	public float speed;
 	public float accel;
 	public float drag;
 	public float movementMax = 20f;
+	private bool rotated = false;
+	public float mTime;
+	public float mTime2;
+	public Vector3 rot;
+	public bool rotatingBack;
+	public float rotZ;
+	private float curVel;
 	void Start () {
 	
 	}
 
 	void Update () {
+		triggers = Input.GetAxis ("Triggers");
 		inputDir.x = Input.GetAxis ("Horizontal"); 
 		inputDir.y = Input.GetAxis ("Vertical");
+		if (triggers == -1 && !rotated)
+		{
+			Rotate (this.transform.rotation.z, 90);
+			//rotter til 90 i z
+		}
+		if (triggers == 1 && !rotated)
+		{
+			Rotate (this.transform.rotation.z, -90);
+			//rotter til 90 i z
+		}
+
+//		else if (triggers == 1)
+//		{
+//			Rotate (this.transform.rotation.z, -90);
+//		}
+
 	}
 
 	void FixedUpdate()
@@ -26,6 +51,23 @@ public class Movement : MonoBehaviour {
 //		transform.position += Time.deltaTime * inputDir * speed;
 		rigidbody.velocity = inputDir.normalized * speed;
 	}
+
+	void Rotate(float from, float to)
+	{
+		if (mTime < 1)
+		{
+			mTime += Time.deltaTime;
+			rot.z = Mathf.SmoothStep(from,to,mTime);
+			this.transform.eulerAngles = rot;
+//			
+		}
+		else
+		{
+			mTime = 0;
+			rotated = true;
+		}
+	}
+
 }
 
 //speed = speed + accel * inputDir.magnitude * Time.deltaTime;
