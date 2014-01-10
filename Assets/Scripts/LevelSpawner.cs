@@ -12,6 +12,7 @@ public class LevelSpawner : MonoBehaviour {
 	List<LevelModule> modules = new List<LevelModule> ();
 	List<LevelModule> removers = new List<LevelModule> ();
 	float offset = 100;
+	public float speed = 10;
 	// Use this for initialization
 	void Start () {
 
@@ -19,7 +20,7 @@ public class LevelSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		distance += Time.deltaTime*5;
+		distance += Time.deltaTime*speed;
 		if (distance > spawnNextModule) {
 			GameObject go = (GameObject)Instantiate(modulePrefabs[Random.Range(0, modulePrefabs.Length)]);
 			LevelModule l = go.GetComponent<LevelModule>();
