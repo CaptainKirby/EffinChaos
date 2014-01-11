@@ -5,10 +5,12 @@ public class PlayerCollision : MonoBehaviour {
 	bool isDead = false;
 	Rect rect;
 	Movement movement;
+	Highscores highscores;
 	void Start() {
 		float h = Screen.height / 4;
 		rect = new Rect (Screen.width/2-h, Screen.height/2-h, h*2, h*2);
 		movement = GetComponent<Movement>();
+		highscores = GetComponent<Highscores>();
 	}
 	void OnCollisionEnter(Collision c) {
 		float dot = 0;
