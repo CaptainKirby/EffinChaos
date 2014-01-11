@@ -10,15 +10,22 @@ public class Movement : MonoBehaviour {
 	public float movementMax = 20f;
 	private bool rotated = false;
 	public float mTime;
-	public Vector3 rot;
+	public Quaternion rot;
 	public bool pressedTrigger;
 	public float rotTo;
 	public float rotationDur = 7f;
-	public bool isRunning;
+	public bool isRotating;
 	public Quaternion startRot;
 	public bool sloppyBool;
 	private bool pressedDown;
 	private bool pressedUp;
+	private bool triggerUp;
+	private bool triggerDownLeft;
+	private bool triggerDownRight;
+	private bool triggerDown;
+	private float rotationAmount;
+	public bool atRotation;
+	public float rotSpeed = 5;
 	void Start () {
 	
 	}
@@ -28,68 +35,141 @@ public class Movement : MonoBehaviour {
 		inputDir.x = Input.GetAxis ("Horizontal"); 
 		inputDir.y = Input.GetAxis ("Vertical");
 
-		if (!isRunning) 
-		{
-			startRot = this.transform.rotation;
-//			mTime = 0;
-			if(!pressedTrigger)
-			{
-				sloppyBool = true;
-			}
-		}
-		if (pressedTrigger) 
-		{
-			if(!pressedDown)
-			{
-				pressedDown = true;
-			}
-			if(sloppyBool)
-			{
-				mTime = 0;
-				sloppyBool = false;
-			}
-//			StartCoroutine("Rotate", rotTo);
-			Quaternion rot;
-			Quaternion newRot = Quaternion.Euler (this.transform.rotation.x, this.transform.rotation.y, rotTo);
+//		if (!isRunning) 
+//		{
 //			startRot = this.transform.rotation;
-			//		while (true)
-			//		{
-			if(mTime < 1)
-			{
-				isRunning = true;
-				mTime += Time.deltaTime / rotationDur;
-				rot = Quaternion.Lerp(startRot,newRot, mTime);
-				this.transform.rotation = rot;
-				//				mTime += Time.deltaTime;
-				//				float curRotZ = transform.rotation
-				//				rot.z = Mathf.SmoothDamp(this.transform.rotation,to, ref curVel,1);
-				//				this.transform.eulerAngles = rot;
-			}
-			else{ isRunning = false;}
-		}
+////			mTime = 0;
+//			if(!pressedTrigger)
+//			{
+//				sloppyBool = true;
+//			}
+//		}
+//		if (pressedTrigger) 
+//		{
+//			if(!pressedDown)
+//			{
+//				pressedDown = true;
+//			}
+//			if(sloppyBool)
+//			{
+//				mTime = 0;
+//				sloppyBool = false;
+//			}
+////			StartCoroutine("Rotate", rotTo);
+//			Quaternion rot;
+//			Quaternion newRot = Quaternion.Euler (this.transform.rotation.x, this.transform.rotation.y, rotTo);
+////			startRot = this.transform.rotation;
+//			//		while (true)
+//			//		{
+//			if(mTime < 1)
+//			{
+//				isRunning = true;
+//				mTime += Time.deltaTime / rotationDur;
+//				rot = Quaternion.Lerp(startRot,newRot, mTime);
+//				this.transform.rotation = rot;
+//				//				mTime += Time.deltaTime;
+//				//				float curRotZ = transform.rotation
+//				//				rot.z = Mathf.SmoothDamp(this.transform.rotation,to, ref curVel,1);
+//				//				this.transform.eulerAngles = rot;
+//			}
+//			else{ isRunning = false;}
+//		}
 
 
 //		else StartCoroutine("Rotate", rotTo);
 
 		if (triggers == -1)
 		{
+			if(!pressedTrigger)
+			{
+				rotTo = -90;
+				triggerDown = true;
+				if(!isRotating)
+				{
+					mTime = 0;
+				}
+				Debug.Log ("triggerRight");
+				if(!isRotating){
+					isRotating = true;
+					StartCoroutine("Rotate",this.transform.rotation);
+				}
+			}
+			else
+			{
+				triggerDown = false;
+			}
 			pressedTrigger = true;
-			rotTo = -90;
+
 //			StartCoroutine("Rotate", 90);
 			//rotter til 90 i z
 		}
 		if (triggers == 1) 
 		{
+			if(!pressedTrigger)
+			{
+				rotTo = 90;
+				triggerDown = true;
+				if(!isRotating)
+				{
+					mTime = 0;
+				}
+				Debug.Log ("triggerLeft");
+				if(!isRotating){
+					isRotating = true;
+					StartCoroutine("Rotate",this.transform.rotation);
+				}
+			}
+			else
+			{
+				triggerDown = false;
+			}
 			pressedTrigger = true;
-			rotTo = 90;
+
 		}
 		if ((int)triggers == 0) 
 		{
+			if(pressedTrigger)
+			{
+				triggerUp = true;
+				StopCoroutine("Rotate");
+				isRotating = false;
+//				if(!isRotating)
+//				{
+//					mTime = 0;
+//				}
+//				if(!isRotating){
+//					isRotating = true;
+//					mTime = 0;
+//					rotTo = 0;
+//					StartCoroutine("Rotate",this.transform.rotation);
+//				}
+	//			Debug.Log ("test");
+
+			}
+			else triggerUp = false;
+//			if(!isRotating){
+//				isRotating = true;
+//				StartCoroutine("Rotate",this.transform.rotation);
+//			}
 			pressedTrigger = false;
+			if(!isRotating){
+//				isRotating = true;
+//				mTime = 0;
+
+//				StartCoroutine("Rotate",this.transform.rotation);
+			}
 			rotTo = 0;
 //			mTime = 0;
 
 		}
+//		if(!isRotating && !pressedTrigger)
+//		{
+//			isRotating = true;
+//			mTime = 0;
+//			StartCoroutine("Rotate",this.transform.rotation);
+//		}
+
+//		transform.Rotate (0, rotationAmount * Time.deltaTime, 0);
 //		if (triggers == 1 && !rotated)
 //		{
 //			Rotate (this.transform.rotation.z, -90);
@@ -114,8 +194,24 @@ public class Movement : MonoBehaviour {
 		rigidbody.velocity = inputDir.normalized * speed;
 	}
 
-//	IEnumerator Rotate(float to)
-//	{
+	IEnumerator Rotate(Quaternion from)
+	{
+//		rotationAmount = Mathf.DeltaAngle(from,to);
+		Quaternion newRot = Quaternion.Euler(transform.rotation.x,transform.rotation.y, rotTo);
+		while(isRotating)
+		{
+			if(mTime < 1)
+			{
+				mTime += Time.deltaTime * rotSpeed;
+				rot = Quaternion.Lerp(from,newRot, mTime);
+				this.transform.rotation = rot;
+			}
+			else isRotating = false ;
+
+			yield return null;
+		}
+		Debug.Log ("TEST");
+	}
 //		float newRot = Mathf.SmoothDamp (transform.rotation.z, to, ref curVel, 1);
 //		test = Mathf.DeltaAngle(,to);
 //		rot.z = newRot;
