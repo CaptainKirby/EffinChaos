@@ -11,7 +11,7 @@
   SubShader {
 
     Tags { "RenderType" = "Opaque" }
-    
+    LOD 300
 
     CGPROGRAM
 
@@ -28,7 +28,14 @@
     };
 
     void vert (inout appdata_full v) {
-		// ??? What to do here ???
+    	float4 vPos =  v.vertex; // mul(_World2Object,v.vertex);
+    	float zOff = vPos.z/_Dist;
+    	vPos += _QOffset*zOff*zOff;
+    	
+    	v.vertex = vPos;
+ 
+ 
+ 		// ??? What to do here ???
 		
         //v2f o;
 	    //float4 vPos = mul (UNITY_MATRIX_MV, v.vertex);
