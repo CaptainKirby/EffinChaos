@@ -13,19 +13,21 @@ public class PlayerCollision : MonoBehaviour {
 		highscores = GetComponent<Highscores>();
 	}
 	void OnCollisionEnter(Collision c) {
-		float dot = 0;
-		foreach (ContactPoint cp in c.contacts) {
-			float d = Vector3.Dot (Vector3.forward, c.contacts [0].normal);
+		//float dot = 0;
+		/*foreach (ContactPoint cp in c.contacts) {
+			float d = Vector3.Dot (Vector3.forward, cp.normal);
 			if (d < dot) dot = d;
 		}
-		if (dot < -0.7f) {
+		if (dot < -0.7f) {*/
 			LevelSpawner.instance.enabled = false;	
 			isDead = true;
 			movement.enabled = false;
 			rigidbody.isKinematic = true;
 			CurveWorld.instance.enabled = false;
-		}
-		Debug.Log(dot);
+			highscores.dead = true;
+			
+		//}
+		//Debug.Log(dot);
 	}
 	void OnGUI() {
 		if (isDead && GUI.Button (rect, "Game Over!\nPlay Again?")) {

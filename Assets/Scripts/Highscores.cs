@@ -10,7 +10,7 @@ public class Highscores : MonoBehaviour {
 	public bool getHighscore;
 	public int score;
 	public string name;
-	bool dead;
+	public bool dead;
 	void Start () {
 		highscoreScores = PlayerPrefsX.GetIntArray("Scores");
 		unsortedHighscoreScoresList = highscoreScores.ToList();
