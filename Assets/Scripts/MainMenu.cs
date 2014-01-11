@@ -21,7 +21,21 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnGUI()
-	{
+	{ 
 
+
+		if(GUILayout.Button ("StartGame")) 
+		{
+
+			Application.LoadLevel("PlayScene");
+		}
+
+		for(int i = 0; i< highscoreNames.Length; i++) 
+		{
+			GUI.Label(new Rect(Screen.width/2 -100, Screen.height/2-50 +i*15, 200, 100),highscoreScores[i].ToString());
+			GUI.Label(new Rect(Screen.width/2 -200, Screen.height/2-50+i*15, 200, 100),highscoreNames[i].ToString());
+		}
+		
 	}
+	//Fiskedusen
 }
