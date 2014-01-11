@@ -6,20 +6,54 @@ public class LevelSpawner : MonoBehaviour {
 	public static LevelSpawner instance;
 	public float distance;
 	float spawnNextModule = 0;
+	public GameObject tubePrefab;
 	public GameObject cubePrefab;
 	public GameObject[] modulePrefabs;
 	List<LevelModule> modules = new List<LevelModule> ();
 	List<LevelModule> removers = new List<LevelModule> ();
 	float offset = 100;
 	public float speed = 10;
+	int tubeLength = 10;
+	public int nextTube = 0;
+	List<LevelModule> tubes = new List<LevelModule> ();
+
 	// Use this for initialization
 	void Awake () {
 		instance = this;
+		for (int i = 0; i < 10; i++) {
+			GameObject go = (GameObject)Instantiate(tubePrefab);
+			LevelModule l = go.GetComponent<LevelModule>();
+			l.position = i*tubeLength-offset;
+			l.transform.position = new Vector3(0, -4.5f, l.position-distance+offset);
+			tubes.Add(l);	
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		speed += (Time.deltaTime / speed) * 10;
 		distance += Time.deltaTime*speed;
+
+		if (distance > nextTube) {
+			GameObject go = (GameObject)Instantiate(tubePrefab);
+			LevelModule l = go.GetComponent<LevelModule>();
+			l.position = nextTube;
+			l.transform.position = new Vector3(0, -4.5f, l.position-distance+offset);
+			tubes.Add(l);
+			nextTube += tubeLength;
+		}
+		foreach (LevelModule l in tubes) {
+			l.transform.position = new Vector3(0, -4.5f, l.position-distance+offset);	
+			if (l.transform.position.z < -20-l.length) removers.Add(l);
+		}
+		if (removers.Count > 0) {
+			foreach (LevelModule l in removers) {
+				tubes.Remove(l);
+				Destroy(l.gameObject);
+			}
+			removers.Clear();
+		}
+
 		if (distance > spawnNextModule) {
 			GameObject prefab = modulePrefabs[Random.Range(0, modulePrefabs.Length)];
 			GameObject go = (GameObject)Instantiate(prefab);
