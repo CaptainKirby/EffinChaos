@@ -15,7 +15,7 @@
 
     CGPROGRAM
 
-    #pragma surface surf Lambert vertex:vert
+    #pragma surface surf Lambert vertex:vert 
 	sampler2D _MainTex;
 	sampler2D _BumpMap;
 	fixed4 _Color;
