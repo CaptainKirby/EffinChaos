@@ -1,9 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelSpawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DiffNormCurve.shader">
     <Files>
-      <File FileName="Assets\Scripts\LevelSpawner.cs" Line="30" Column="32" />
-      <File FileName="Assets\Scripts\LevelModule.cs" Line="11" Column="3" />
+      <File FileName="Assets\Scripts\CurveWorld.cs" Line="28" Column="4" />
+      <File FileName="Assets\Scripts\LevelSpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelModule.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerCollision.cs" Line="1" Column="1" />
+      <File FileName="Assets\DiffNormCurve.shader" Line="30" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

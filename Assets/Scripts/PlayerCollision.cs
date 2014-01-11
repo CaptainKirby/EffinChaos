@@ -21,6 +21,7 @@ public class PlayerCollision : MonoBehaviour {
 			isDead = true;
 			movement.enabled = false;
 			rigidbody.isKinematic = true;
+			CurveWorld.instance.enabled = false;
 		}
 		Debug.Log(dot);
 	}
