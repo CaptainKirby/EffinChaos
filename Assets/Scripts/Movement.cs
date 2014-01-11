@@ -137,12 +137,12 @@ public class Movement : MonoBehaviour {
 //				{
 //					mTime = 0;
 //				}
-//				if(!isRotating){
-//					isRotating = true;
-//					mTime = 0;
-//					rotTo = 0;
-//					StartCoroutine("Rotate",this.transform.rotation);
-//				}
+				if(!isRotating){
+					isRotating = true;
+					mTime = 0;
+					rotTo = 0;
+					StartCoroutine("Rotate",this.transform.rotation);
+				}
 	//			Debug.Log ("test");
 
 			}
