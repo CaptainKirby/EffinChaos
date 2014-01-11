@@ -11,11 +11,11 @@
   SubShader {
 
     Tags { "RenderType" = "Opaque" }
-    
+    LOD 300
 
     CGPROGRAM
 
-    #pragma surface surf Lambert vertex:vert
+    #pragma surface surf Lambert vertex:vert 
 	sampler2D _MainTex;
 	sampler2D _BumpMap;
 	fixed4 _Color;
@@ -28,7 +28,14 @@
     };
 
     void vert (inout appdata_full v) {
-		// ??? What to do here ???
+    	float4 vPos =  v.vertex; // mul(_World2Object,v.vertex);
+    	float zOff = vPos.z/_Dist;
+    	vPos += _QOffset*zOff*zOff;
+    	
+    	v.vertex = vPos;
+ 
+ 
+ 		// ??? What to do here ???
 		
         //v2f o;
 	    //float4 vPos = mul (UNITY_MATRIX_MV, v.vertex);

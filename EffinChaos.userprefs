@@ -1,11 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerCollision.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DiffNormCurve.shader">
     <Files>
-      <File FileName="Assets\Scripts\CurveWorld.cs" Line="28" Column="4" />
-      <File FileName="Assets\Scripts\LevelSpawner.cs" Line="34" Column="13" />
+      <File FileName="Assets\Scripts\CurveWorld.cs" Line="10" Column="41" />
+      <File FileName="Assets\Scripts\LevelSpawner.cs" Line="61" Column="4" />
       <File FileName="Assets\Scripts\LevelModule.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerCollision.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\PlayerCollision.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Highscores.cs" Line="1" Column="1" />
+      <File FileName="Assets\DiffNormCurve.shader" Line="18" Column="46" />
+      <File FileName="Assets\Curved.shader" Line="16" Column="44" />
+      <File FileName="Assets\Normal-Bumped.shader" Line="24" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

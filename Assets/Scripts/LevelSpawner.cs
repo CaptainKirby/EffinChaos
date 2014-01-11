@@ -11,7 +11,7 @@ public class LevelSpawner : MonoBehaviour {
 	public GameObject[] modulePrefabs;
 	List<LevelModule> modules = new List<LevelModule> ();
 	List<LevelModule> removers = new List<LevelModule> ();
-	float offset = 100;
+	float offset = 150;
 	public float speed = 10;
 	int tubeLength = 10;
 	public int nextTube = 0;
@@ -20,7 +20,8 @@ public class LevelSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		instance = this;
-		for (int i = 0; i < 10; i++) {
+		// Populating the map with tubes, so it is not empty at start
+		for (int i = 0; i < 15; i++) {
 			GameObject go = (GameObject)Instantiate(tubePrefab);
 			LevelModule l = go.GetComponent<LevelModule>();
 			l.position = i*tubeLength-offset;
@@ -34,6 +35,7 @@ public class LevelSpawner : MonoBehaviour {
 		speed += (Time.deltaTime / speed) * 10;
 		distance += Time.deltaTime*speed;
 
+		//Adding tube pieces
 		if (distance > nextTube) {
 			GameObject go = (GameObject)Instantiate(tubePrefab);
 			LevelModule l = go.GetComponent<LevelModule>();
@@ -42,10 +44,14 @@ public class LevelSpawner : MonoBehaviour {
 			tubes.Add(l);
 			nextTube += tubeLength;
 		}
+
+		//Updating tube pieces position
 		foreach (LevelModule l in tubes) {
 			l.transform.position = new Vector3(0, -4.5f, l.position-distance+offset);	
 			if (l.transform.position.z < -20-l.length) removers.Add(l);
 		}
+
+		//Removing tube pieces that have passed the player
 		if (removers.Count > 0) {
 			foreach (LevelModule l in removers) {
 				tubes.Remove(l);
@@ -53,13 +59,17 @@ public class LevelSpawner : MonoBehaviour {
 			}
 			removers.Clear();
 		}
-
+		
+		//Adding next module
 		if (distance > spawnNextModule) {
 			GameObject prefab = modulePrefabs[Random.Range(0, modulePrefabs.Length)];
 			GameObject go = (GameObject)Instantiate(prefab);
 			LevelModule l = go.GetComponent<LevelModule>();
 			l.position = spawnNextModule;
 			l.transform.position = new Vector3(0, 0, l.position-distance+offset);
+			Rigidbody ri = l.gameObject.AddComponent<Rigidbody>();
+			ri.isKinematic = true;
+			ri.MovePosition(new Vector3(0, 0, l.position-distance+offset));
 			spawnNextModule += l.length;
 			modules.Add(l);
 			if (l.fillWithRandomBlocks) {
@@ -72,12 +82,14 @@ public class LevelSpawner : MonoBehaviour {
 			}
 		}
 
+		//Updating all spawned modules position
 		foreach (LevelModule l in modules) {
-			l.transform.position = new Vector3(0, 0, l.position-distance+offset);	
+			l.rigidbody.MovePosition(new Vector3(0, 0, l.position-distance+offset));
+			//l.transform.position = new Vector3(0, 0, l.position-distance+offset);	
 			if (l.transform.position.z < -20-l.length) removers.Add(l);
 		}
-
-
+		
+		//Removing modules that have passed the player
 		if (removers.Count > 0) {
 			foreach (LevelModule l in removers) {
 				modules.Remove(l);
