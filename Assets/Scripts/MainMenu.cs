@@ -10,6 +10,9 @@ public class MainMenu : MonoBehaviour {
 	void Start () {
 		highscoreScores = PlayerPrefsX.GetIntArray("HighscoreScores");
 		highscoreNames = PlayerPrefsX.GetStringArray("HighscoreNames");
+//		highscoreNames.Reverse();
+		highscoreScores.Reverse();
+//		System.Array.Reverse (highscoreNames);
 //		unsortedHighscoreScoresList = highscoreScores.ToList();
 //		sortedHighscoreScoresList = unsortedHighscoreScoresList.OrderBy(i => i).ToList();
 //		highscoreScores = sortedHighscoreScoresList.ToArray(); 
@@ -17,7 +20,8 @@ public class MainMenu : MonoBehaviour {
 	
 
 	void Update () {
-	
+		highscoreScores.Reverse();
+
 	}
 
 	void OnGUI()

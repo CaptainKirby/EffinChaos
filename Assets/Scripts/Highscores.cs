@@ -97,6 +97,8 @@ public class Highscores : MonoBehaviour {
 //		highscoreScores.
 		highscoreScores = highscoreScoresList.ToArray(); 
 		highscoreNames = highscoreNamesList.ToArray();
+//		highscoreNames.Reverse();
+//		highscoreScores.Reverse();
 		PlayerPrefsX.SetIntArray ("HighscoreScores", highscoreScores);
 		PlayerPrefsX.SetStringArray ("HighscoreNames", highscoreNames);
 	}
