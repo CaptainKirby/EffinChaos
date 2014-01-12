@@ -19,12 +19,15 @@ public class PlayerCollision : MonoBehaviour {
 			if (d < dot) dot = d;
 		}
 		if (dot < -0.7f) {*/
+		if(c.gameObject.name != "boundingBox")
+		{
 			LevelSpawner.instance.enabled = false;	
 			isDead = true;
 			movement.enabled = false;
 			rigidbody.isKinematic = true;
 			CurveWorld.instance.enabled = false;
 			highscores.dead = true;
+		}
 			
 		//}
 		//Debug.Log(dot);
