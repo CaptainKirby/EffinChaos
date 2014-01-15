@@ -63,7 +63,7 @@ public class LevelSpawner : MonoBehaviour {
 		//Adding next module
 		if (distance > spawnNextModule) {
 			GameObject prefab = modulePrefabs[Random.Range(0, modulePrefabs.Length)];
-			GameObject go = (GameObject)Instantiate(prefab);
+			GameObject go = (GameObject)Instantiate(prefab, new Vector3(0, 0, spawnNextModule-distance+offset), prefab.transform.rotation);
 			LevelModule l = go.GetComponent<LevelModule>();
 			l.position = spawnNextModule;
 			l.transform.position = new Vector3(0, 0, l.position-distance+offset);

@@ -5,6 +5,7 @@ public class PlayerCollision : MonoBehaviour {
 	bool isDead = false;
 	Rect rect;
 	Movement movement;
+	public ParticleSystem explosion;
 	Highscores highscores;
 	void Start() {
 		float h = Screen.height / 4;
@@ -27,6 +28,11 @@ public class PlayerCollision : MonoBehaviour {
 			rigidbody.isKinematic = true;
 			CurveWorld.instance.enabled = false;
 			highscores.dead = true;
+			AudioSource[] audioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+			foreach (AudioSource a in audioSources) {
+				Destroy(a.gameObject);
+			}
+			explosion.Play(true);
 		}
 			
 		//}
